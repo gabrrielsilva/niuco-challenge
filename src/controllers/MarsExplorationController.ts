@@ -15,17 +15,13 @@ export class MarsExplorationController {
       const roverData = roversData[i];
       const rover = new Rover(roverData.position, roverData.instructions);
       
-      try {
-        const result = rover.executeInstructions(plateau, this.occupiedPositions);
-        results.push(result);
+      const result = rover.executeInstructions(plateau, this.occupiedPositions);
+      results.push(result);
+      
+      if (result.success) {
         console.log(`Sonda ${i + 1} finalizou em: ${rover.getFinalPositionString()}`);
-      } catch (error) {
-        console.error(`Erro na sonda ${i + 1}: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
-        // Adiciona resultado com posição atual mesmo em caso de erro
-        results.push({
-          finalPosition: rover.getPosition(),
-          roverId: i + 1
-        });
+      } else {
+        console.error(`Sonda ${i + 1} falhou: ${result.error}`);
       }
     }
 
@@ -70,8 +66,9 @@ export class MarsExplorationController {
   }
 
   getFinalPositionsAsStrings(results: ExplorationResult[]): string[] {
-    return results.map(result => 
-      `${result.finalPosition.x} ${result.finalPosition.y} ${result.finalPosition.direction}`
-    );
+    return results.map(result => {
+      const position = `${result.finalPosition.x} ${result.finalPosition.y} ${result.finalPosition.direction}`;
+      return result.success ? position : `${position} (ERRO: ${result.error})`;
+    });
   }
-} 
+}

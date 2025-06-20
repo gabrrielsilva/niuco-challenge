@@ -19,6 +19,8 @@ export interface Rover {
 export interface ExplorationResult {
   finalPosition: Position;
   roverId: number;
+  error?: string;
+  success: boolean;
 }
 
 export interface ExplorationData {

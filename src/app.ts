@@ -20,10 +20,20 @@ app.post('/explore', (req: Request, res: Response) => {
     const results = controller.processExploration(plateau, rovers);
     const finalPositions = controller.getFinalPositionsAsStrings(results);
     
+    const hasErrors = results.some(result => !result.success);
+    const successfulRovers = results.filter(result => result.success).length;
+    const failedRovers = results.filter(result => !result.success).length;
+    
     res.json({ 
-      success: true, 
+      success: !hasErrors,
       finalPositions,
-      results
+      results,
+      summary: {
+        totalRovers: results.length,
+        successfulRovers,
+        failedRovers,
+        hasErrors
+      }
     });
   } catch (error) {
     res.status(500).json({ 

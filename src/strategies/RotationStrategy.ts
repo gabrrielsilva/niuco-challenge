@@ -26,11 +26,10 @@ export class RightRotationStrategy {
   }
 }
 
-// Factory Pattern para criar estratégias de rotação
 export class RotationStrategyFactory {
   private static strategies = {
     'L': new LeftRotationStrategy(),
-    'R': new RightRotationStrategy()
+    'R': new RightRotationStrategy(),
   };
 
   static createStrategy(rotation: 'L' | 'R') {

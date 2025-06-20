@@ -15,6 +15,9 @@ export class Rover {
     const initialPositionKey = `${this.position.x},${this.position.y}`;
     occupiedPositions.add(initialPositionKey);
 
+    let errorMessage: string | undefined;
+    let success = true;
+
     for (const instruction of this.instructions) {
       try {
         const command = CommandFactory.createCommand(
@@ -25,14 +28,18 @@ export class Rover {
         );
         command.execute();
       } catch (error) {
-        console.error(`Erro ao executar instrução '${instruction}': ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
-        // Continua executando as próximas instruções mesmo se uma falhar
+        errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+        success = false;
+        console.error(`Erro ao executar instrução '${instruction}': ${errorMessage}`);
+        break;
       }
     }
 
     return {
       finalPosition: { ...this.position },
-      roverId: this.hashCode()
+      roverId: this.hashCode(),
+      error: errorMessage,
+      success
     };
   }
 

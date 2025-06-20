@@ -32,6 +32,9 @@ export class MoveCommand extends Command {
       throw new Error(`Posição ocupada: (${newPosition.x}, ${newPosition.y}) já está sendo usada por outra sonda`);
     }
     
+    const oldPositionKey = `${this.rover.position.x},${this.rover.position.y}`;
+    this.occupiedPositions.delete(oldPositionKey);
+    
     this.rover.position = newPosition;
     this.occupiedPositions.add(positionKey);
   }
@@ -52,7 +55,6 @@ export class RotateCommand extends Command {
   }
 }
 
-// Factory Pattern para criar comandos
 export class CommandFactory {
   static createCommand(
     instruction: string,
@@ -70,4 +72,4 @@ export class CommandFactory {
         throw new Error(`Instrução não reconhecida: ${instruction}`);
     }
   }
-} 
+}
