@@ -1,0 +1,24 @@
+GET http://localhost:3000/ HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:3000/explore HTTP/1.1
+content-type: application/json
+
+{
+    "plateau": {
+        "width": 5,
+        "height": 5
+    },
+    "rovers": [
+        {
+            "position": { "x": 1, "y": 2, "direction": "N" },
+            "instructions": "LMLMLMLMM"
+        },
+        {
+            "position": { "x": 3, "y": 3, "direction": "E" },
+            "instructions": "MMRMMRMRRM"
+        }
+    ]
+}
