@@ -17,7 +17,7 @@ export class NorthMovementStrategy extends MovementStrategy {
 }
 
 export class SouthMovementStrategy extends MovementStrategy {
-  move(currentPosition: Position, _: Plateau): Position {
+  move(currentPosition: Position): Position {
     const newY = currentPosition.y - 1;
     
     if (newY < 0) {
@@ -41,7 +41,7 @@ export class EastMovementStrategy extends MovementStrategy {
 }
 
 export class WestMovementStrategy extends MovementStrategy {
-  move(currentPosition: Position, _: Plateau): Position {
+  move(currentPosition: Position): Position {
     const newX = currentPosition.x - 1;
     
     if (newX < 0) {
