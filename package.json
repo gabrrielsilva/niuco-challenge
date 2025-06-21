@@ -45,5 +45,6 @@
       "lcov",
       "html"
     ]
-  }
+  },
+  "license": "ISC"
 }

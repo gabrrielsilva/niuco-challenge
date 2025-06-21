@@ -53,7 +53,7 @@ describe('MovementStrategy', () => {
 
     it('deve mover para o sul corretamente', () => {
       const position: Position = { x: 1, y: 2, direction: 'S' };
-      const newPosition = strategy.move(position, plateau);
+      const newPosition = strategy.move(position);
 
       expect(newPosition).toEqual({ x: 1, y: 1, direction: 'S' });
     });
@@ -61,14 +61,14 @@ describe('MovementStrategy', () => {
     it('deve falhar ao tentar sair do planalto pelo sul', () => {
       const position: Position = { x: 1, y: 0, direction: 'S' };
 
-      expect(() => strategy.move(position, plateau)).toThrow(
+      expect(() => strategy.move(position)).toThrow(
         'Movimento inválido: sonda tentaria sair do planalto (y: -1 < 0)'
       );
     });
 
     it('deve permitir movimento no limite do planalto', () => {
       const position: Position = { x: 1, y: 1, direction: 'S' };
-      const newPosition = strategy.move(position, plateau);
+      const newPosition = strategy.move(position);
 
       expect(newPosition).toEqual({ x: 1, y: 0, direction: 'S' });
     });
@@ -113,7 +113,7 @@ describe('MovementStrategy', () => {
 
     it('deve mover para o oeste corretamente', () => {
       const position: Position = { x: 2, y: 1, direction: 'W' };
-      const newPosition = strategy.move(position, plateau);
+      const newPosition = strategy.move(position);
 
       expect(newPosition).toEqual({ x: 1, y: 1, direction: 'W' });
     });
@@ -121,14 +121,14 @@ describe('MovementStrategy', () => {
     it('deve falhar ao tentar sair do planalto pelo oeste', () => {
       const position: Position = { x: 0, y: 1, direction: 'W' };
 
-      expect(() => strategy.move(position, plateau)).toThrow(
+      expect(() => strategy.move(position)).toThrow(
         'Movimento inválido: sonda tentaria sair do planalto (x: -1 < 0)'
       );
     });
 
     it('deve permitir movimento no limite do planalto', () => {
       const position: Position = { x: 1, y: 1, direction: 'W' };
-      const newPosition = strategy.move(position, plateau);
+      const newPosition = strategy.move(position);
 
       expect(newPosition).toEqual({ x: 0, y: 1, direction: 'W' });
     });
@@ -180,13 +180,13 @@ describe('MovementStrategy', () => {
       expect(() => northStrategy.move({ x: 0, y: 0, direction: 'N' }, smallPlateau))
         .toThrow('Movimento inválido: sonda tentaria sair do planalto (y: 1 > 0)');
       
-      expect(() => southStrategy.move({ x: 0, y: 0, direction: 'S' }, smallPlateau))
+      expect(() => southStrategy.move({ x: 0, y: 0, direction: 'S' }))
         .toThrow('Movimento inválido: sonda tentaria sair do planalto (y: -1 < 0)');
       
       expect(() => eastStrategy.move({ x: 0, y: 0, direction: 'E' }, smallPlateau))
         .toThrow('Movimento inválido: sonda tentaria sair do planalto (x: 1 > 0)');
       
-      expect(() => westStrategy.move({ x: 0, y: 0, direction: 'W' }, smallPlateau))
+      expect(() => westStrategy.move({ x: 0, y: 0, direction: 'W' }))
         .toThrow('Movimento inválido: sonda tentaria sair do planalto (x: -1 < 0)');
     });
 

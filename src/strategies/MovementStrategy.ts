@@ -1,10 +1,14 @@
 import { Position, Direction, Plateau } from '../types';
 
 abstract class MovementStrategy {
+  abstract move(currentPosition: Position, plateau?: Plateau): Position;
+}
+
+abstract class PlateauAwareMovementStrategy extends MovementStrategy {
   abstract move(currentPosition: Position, plateau: Plateau): Position;
 }
 
-export class NorthMovementStrategy extends MovementStrategy {
+export class NorthMovementStrategy extends PlateauAwareMovementStrategy {
   move(currentPosition: Position, plateau: Plateau): Position {
     const newY = currentPosition.y + 1;
     
@@ -28,7 +32,7 @@ export class SouthMovementStrategy extends MovementStrategy {
   }
 }
 
-export class EastMovementStrategy extends MovementStrategy {
+export class EastMovementStrategy extends PlateauAwareMovementStrategy {
   move(currentPosition: Position, plateau: Plateau): Position {
     const newX = currentPosition.x + 1;
     

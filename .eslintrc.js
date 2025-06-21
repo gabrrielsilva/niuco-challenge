@@ -6,11 +6,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    // '@typescript-eslint/recommended',
-    // '@typescript-eslint/recommended-requiring-type-checking',
-  ],
+  extends: ['eslint:recommended'],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
