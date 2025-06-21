@@ -13,7 +13,7 @@ export interface Plateau {
 
 export interface Rover {
   position: Position;
-  instructions: 'L' | 'R' | 'M';
+  instructions: string;
 }
 
 export interface ExplorationResult {

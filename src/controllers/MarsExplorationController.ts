@@ -17,12 +17,6 @@ export class MarsExplorationController {
       
       const result = rover.executeInstructions(plateau, this.occupiedPositions);
       results.push(result);
-      
-      if (result.success) {
-        console.log(`Sonda ${i + 1} finalizou em: ${rover.getFinalPositionString()}`);
-      } else {
-        console.error(`Sonda ${i + 1} falhou: ${result.error}`);
-      }
     }
 
     return results;
@@ -46,7 +40,7 @@ export class MarsExplorationController {
     for (let i = 0; i < rovers.length; i++) {
       const rover = rovers[i];
       
-      if (!rover.position || !rover.instructions) {
+      if (!rover.position || !rover.instructions || !rover.instructions.length) {
         throw new Error(`Dados da sonda ${i + 1} incompletos`);
       }
 

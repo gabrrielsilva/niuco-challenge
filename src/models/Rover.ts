@@ -11,8 +11,16 @@ export class Rover {
   }
 
   executeInstructions(plateau: Plateau, occupiedPositions: Set<string>): ExplorationResult {
-    // Adiciona a posição inicial às posições ocupadas
     const initialPositionKey = `${this.position.x},${this.position.y}`;
+    if (occupiedPositions.has(initialPositionKey)) {
+      return {
+        finalPosition: { ...this.position },
+        roverId: this.hashCode(),
+        error: `Posição inicial (${this.position.x}, ${this.position.y}) já está ocupada por outro rover`,
+        success: false
+      };
+    }
+
     occupiedPositions.add(initialPositionKey);
 
     let errorMessage: string | undefined;
@@ -30,7 +38,7 @@ export class Rover {
       } catch (error) {
         errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
         success = false;
-        console.error(`Erro ao executar instrução '${instruction}': ${errorMessage}`);
+        // console.error(`Erro ao executar instrução '${instruction}': ${errorMessage}`);
         break;
       }
     }
@@ -56,8 +64,7 @@ export class Rover {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32bit integer
+      hash = (hash * 31 + char) | 0;
     }
     return Math.abs(hash);
   }
